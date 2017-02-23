@@ -1,0 +1,6 @@
+# java application for fc-api
+fc-api:
+    image: ynuae/fc-api
+    ports:
+      - "50014:8080"
+    restart: always
