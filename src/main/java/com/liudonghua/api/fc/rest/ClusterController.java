@@ -339,7 +339,7 @@ public class ClusterController {
 	 * </pre>	 
 	 * </code>
 	 */
-	@RequestMapping("/{siteUri}/cluster/{clusterUri}")
+	@RequestMapping("/{siteUri}/computerResource/{clusterUri}")
 	public FCSDKResponse queryComputeResource(@PathVariable String siteUri, @PathVariable String clusterUri, HttpSession session) {
 		ClientProviderBean clientProvider = (ClientProviderBean) session.getAttribute("clientProvider");
 		if(clientProvider == null) {
