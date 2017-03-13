@@ -62,6 +62,7 @@ public class ClusterController {
 		ClusterResource clusterResource = ServiceFactory.getService(ClusterResource.class, clientProvider);
 //		List<String> clusterUrns = new ArrayList<String>();
 //		clusterUrns.add("urn:sites:3EB607A6:clusters:10");
+		siteUri = "/service/sites/" + siteUri;
 		FCSDKResponse<List<ClusterBasicInfo>> queryClusters = clusterResource.queryClusters(siteUri, null, null, null, null);
 		return queryClusters;
 	}
@@ -317,6 +318,7 @@ public class ClusterController {
 			clientProvider = Utils.initClientProviderBean();
 		}
 		ClusterResource clusterResource = ServiceFactory.getService(ClusterResource.class, clientProvider);
+		siteUri = "/service/sites/" + siteUri;
 		FCSDKResponse<ClusterInfo> queryCluster = clusterResource.queryCluster(clusterUri);
 		return queryCluster;
 	}
@@ -346,6 +348,7 @@ public class ClusterController {
 			clientProvider = Utils.initClientProviderBean();
 		}
 		ClusterResource clusterResource = ServiceFactory.getService(ClusterResource.class, clientProvider);
+		siteUri = "/service/sites/" + siteUri;
 		FCSDKResponse<ComputeResource> queryComputeResource = clusterResource.queryComputeResource(clusterUri);
 		return queryComputeResource;
 	}

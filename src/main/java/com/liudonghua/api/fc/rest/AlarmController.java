@@ -82,6 +82,7 @@ public class AlarmController {
 		ActiveAlarmQueryParams par = new ActiveAlarmQueryParams();
 		par.setLimit(limit);
 		par.setOffset(offset);
+		siteUri = "/service/sites/" + siteUri;
 		FCSDKResponse<PageList<Alarm>> queryActiveAlarms = alarmResource.queryActiveAlarms(par, siteUri);
 		return queryActiveAlarms;
 	}
@@ -124,6 +125,7 @@ public class AlarmController {
 		EventQueryParams par = new EventQueryParams();
 		par.setLimit(limit);
 		par.setOffset(offset);
+		siteUri = "/service/sites/" + siteUri;
 		FCSDKResponse<PageList<Event>> queryEvents = alarmResource.queryEvents(par, siteUri);
 		return queryEvents;
 	}
@@ -181,6 +183,7 @@ public class AlarmController {
 		HistoryAlarmQueryParams par = new HistoryAlarmQueryParams();
 		par.setLimit(limit);
 		par.setOffset(offset);
+		siteUri = "/service/sites/" + siteUri;
 		FCSDKResponse<PageList<HistoryAlarm>> queryHistoryAlarms = alarmResource.queryHistoryAlarms(par, siteUri);
 		return queryHistoryAlarms;
 	}
@@ -227,6 +230,7 @@ public class AlarmController {
 			clientProvider = Utils.initClientProviderBean();
 		}
 		AlarmResource alarmResource = ServiceFactory.getService(AlarmResource.class, clientProvider);
+		siteUri = "/service/sites/" + siteUri;
 		FCSDKResponse<QueryThresholdsResp> queryThresholds = alarmResource.queryThresholds(siteUri);
 		return queryThresholds;
 	}
