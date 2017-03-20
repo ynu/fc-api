@@ -50,6 +50,7 @@ public class JwtFilter extends GenericFilterBean {
         catch (Exception e) {
 			e.printStackTrace();
 			Utils.tokenInvalidateResponse(response);
+			return;
         }
 
         chain.doFilter(req, res);
