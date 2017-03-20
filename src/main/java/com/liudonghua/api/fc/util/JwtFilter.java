@@ -47,7 +47,7 @@ public class JwtFilter extends GenericFilterBean {
                 .parseClaimsJws(token).getBody();
             request.setAttribute("claims", claims);
         }
-        catch (final SignatureException e) {
+        catch (Exception e) {
 			e.printStackTrace();
 			Utils.tokenInvalidateResponse(response);
         }
