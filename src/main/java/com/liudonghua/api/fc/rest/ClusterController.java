@@ -311,6 +311,7 @@ public class ClusterController {
 	public FCSDKResponse queryCluster(@PathVariable String siteUri, @PathVariable String clusterUri, HttpSession session) {
 		ClusterResource clusterResource = ServiceFactory.getService(ClusterResource.class, Utils.initLoginClientProviderBean());
 		siteUri = "/service/sites/" + siteUri;
+		clusterUri = siteUri + "/clusters/" + clusterUri;
 		FCSDKResponse<ClusterInfo> queryCluster = clusterResource.queryCluster(clusterUri);
 		return queryCluster;
 	}
@@ -337,6 +338,7 @@ public class ClusterController {
 	public FCSDKResponse queryComputeResource(@PathVariable String siteUri, @PathVariable String clusterUri, HttpSession session) {
 		ClusterResource clusterResource = ServiceFactory.getService(ClusterResource.class, Utils.initLoginClientProviderBean());
 		siteUri = "/service/sites/" + siteUri;
+		clusterUri = siteUri + "/clusters/" + clusterUri;
 		FCSDKResponse<ComputeResource> queryComputeResource = clusterResource.queryComputeResource(clusterUri);
 		return queryComputeResource;
 	}
