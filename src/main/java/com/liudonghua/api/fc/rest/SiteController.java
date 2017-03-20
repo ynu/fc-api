@@ -40,11 +40,7 @@ public class SiteController {
 	 */
 	@RequestMapping("/")
 	public FCSDKResponse querySites(HttpSession session) {
-		ClientProviderBean clientProvider = (ClientProviderBean) session.getAttribute("clientProvider");
-		if(clientProvider == null) {
-			clientProvider = Utils.initClientProviderBean();
-		}
-		SiteResource site = ServiceFactory.getService(SiteResource.class, clientProvider);
+		SiteResource site = ServiceFactory.getService(SiteResource.class, Utils.initLoginClientProviderBean());
 		FCSDKResponse<List<SiteBasicInfo>> sites = site.querySites();
 		return sites;
 	}

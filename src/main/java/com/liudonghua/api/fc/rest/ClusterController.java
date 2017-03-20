@@ -55,11 +55,7 @@ public class ClusterController {
 	 */
 	@RequestMapping("/{siteUri}/cluster")
 	public FCSDKResponse queryClusters(@PathVariable String siteUri, HttpSession session) {
-		ClientProviderBean clientProvider = (ClientProviderBean) session.getAttribute("clientProvider");
-		if(clientProvider == null) {
-			clientProvider = Utils.initClientProviderBean();
-		}
-		ClusterResource clusterResource = ServiceFactory.getService(ClusterResource.class, clientProvider);
+		ClusterResource clusterResource = ServiceFactory.getService(ClusterResource.class, Utils.initLoginClientProviderBean());
 //		List<String> clusterUrns = new ArrayList<String>();
 //		clusterUrns.add("urn:sites:3EB607A6:clusters:10");
 		siteUri = "/service/sites/" + siteUri;
@@ -313,11 +309,7 @@ public class ClusterController {
 	 */
 	@RequestMapping("/{siteUri}/cluster/{clusterUri}")
 	public FCSDKResponse queryCluster(@PathVariable String siteUri, @PathVariable String clusterUri, HttpSession session) {
-		ClientProviderBean clientProvider = (ClientProviderBean) session.getAttribute("clientProvider");
-		if(clientProvider == null) {
-			clientProvider = Utils.initClientProviderBean();
-		}
-		ClusterResource clusterResource = ServiceFactory.getService(ClusterResource.class, clientProvider);
+		ClusterResource clusterResource = ServiceFactory.getService(ClusterResource.class, Utils.initLoginClientProviderBean());
 		siteUri = "/service/sites/" + siteUri;
 		FCSDKResponse<ClusterInfo> queryCluster = clusterResource.queryCluster(clusterUri);
 		return queryCluster;
@@ -343,11 +335,7 @@ public class ClusterController {
 	 */
 	@RequestMapping("/{siteUri}/computerResource/{clusterUri}")
 	public FCSDKResponse queryComputeResource(@PathVariable String siteUri, @PathVariable String clusterUri, HttpSession session) {
-		ClientProviderBean clientProvider = (ClientProviderBean) session.getAttribute("clientProvider");
-		if(clientProvider == null) {
-			clientProvider = Utils.initClientProviderBean();
-		}
-		ClusterResource clusterResource = ServiceFactory.getService(ClusterResource.class, clientProvider);
+		ClusterResource clusterResource = ServiceFactory.getService(ClusterResource.class, Utils.initLoginClientProviderBean());
 		siteUri = "/service/sites/" + siteUri;
 		FCSDKResponse<ComputeResource> queryComputeResource = clusterResource.queryComputeResource(clusterUri);
 		return queryComputeResource;

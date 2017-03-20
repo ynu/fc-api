@@ -31,13 +31,11 @@
 		</dependency>
 
 		<!-- fusioncompute and its dependency  -->
-		<!-- 
 		<dependency>
 			<groupId>com.com.huawei.esdk</groupId>
 			<artifactId>fusioncompute</artifactId>
 			<version>2.1.0</version>
 		</dependency>
-		 -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -83,7 +81,7 @@
 		<dependency>
 			<groupId>org.restlet.jee</groupId>
 			<artifactId>org.restlet.ext.slf4j</artifactId>
-			<version>2.3.9</version>
+			<version>2.2.1</version>
 		</dependency>
 		<!-- 
 		<dependency>
@@ -96,10 +94,19 @@
 		<dependency>
 			<groupId>org.restlet.jse</groupId>
 			<artifactId>org.restlet</artifactId>
-			<version>2.3.9</version>
+			<version>2.2.1</version>
 		</dependency>
 		 -->
 
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.6.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+		</dependency>
 	</dependencies>
 
 	<properties>

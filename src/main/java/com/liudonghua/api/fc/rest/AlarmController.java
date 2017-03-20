@@ -74,11 +74,7 @@ public class AlarmController {
 			@RequestParam(value="limit", defaultValue="10", required=false) int limit, 
 			@RequestParam(value="offset", defaultValue="0", required=false) int offset, 
 			HttpSession session) {
-		ClientProviderBean clientProvider = (ClientProviderBean) session.getAttribute("clientProvider");
-		if(clientProvider == null) {
-			clientProvider = Utils.initClientProviderBean();
-		}
-		AlarmResource alarmResource = ServiceFactory.getService(AlarmResource.class, clientProvider);
+		AlarmResource alarmResource = ServiceFactory.getService(AlarmResource.class, Utils.initLoginClientProviderBean());
 		ActiveAlarmQueryParams par = new ActiveAlarmQueryParams();
 		par.setLimit(limit);
 		par.setOffset(offset);
@@ -117,11 +113,7 @@ public class AlarmController {
 			@RequestParam(value="limit", defaultValue="10", required=false) int limit, 
 			@RequestParam(value="offset", defaultValue="0", required=false) int offset, 
 			HttpSession session) {
-		ClientProviderBean clientProvider = (ClientProviderBean) session.getAttribute("clientProvider");
-		if(clientProvider == null) {
-			clientProvider = Utils.initClientProviderBean();
-		}
-		AlarmResource alarmResource = ServiceFactory.getService(AlarmResource.class, clientProvider);
+		AlarmResource alarmResource = ServiceFactory.getService(AlarmResource.class, Utils.initLoginClientProviderBean());
 		EventQueryParams par = new EventQueryParams();
 		par.setLimit(limit);
 		par.setOffset(offset);
@@ -175,11 +167,7 @@ public class AlarmController {
 			@RequestParam(value="limit", defaultValue="10", required=false) int limit, 
 			@RequestParam(value="offset", defaultValue="0", required=false) int offset, 
 			HttpSession session) {
-		ClientProviderBean clientProvider = (ClientProviderBean) session.getAttribute("clientProvider");
-		if(clientProvider == null) {
-			clientProvider = Utils.initClientProviderBean();
-		}
-		AlarmResource alarmResource = ServiceFactory.getService(AlarmResource.class, clientProvider);
+		AlarmResource alarmResource = ServiceFactory.getService(AlarmResource.class, Utils.initLoginClientProviderBean());
 		HistoryAlarmQueryParams par = new HistoryAlarmQueryParams();
 		par.setLimit(limit);
 		par.setOffset(offset);
@@ -225,11 +213,7 @@ public class AlarmController {
 			@RequestParam(value="limit", defaultValue="10", required=false) int limit, 
 			@RequestParam(value="offset", defaultValue="0", required=false) int offset, 
 			HttpSession session) {
-		ClientProviderBean clientProvider = (ClientProviderBean) session.getAttribute("clientProvider");
-		if(clientProvider == null) {
-			clientProvider = Utils.initClientProviderBean();
-		}
-		AlarmResource alarmResource = ServiceFactory.getService(AlarmResource.class, clientProvider);
+		AlarmResource alarmResource = ServiceFactory.getService(AlarmResource.class, Utils.initLoginClientProviderBean());
 		siteUri = "/service/sites/" + siteUri;
 		FCSDKResponse<QueryThresholdsResp> queryThresholds = alarmResource.queryThresholds(siteUri);
 		return queryThresholds;
