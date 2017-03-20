@@ -69,8 +69,8 @@ public class AlarmController {
 	 * </pre>
 	 * </code>
 	 */
-	@RequestMapping("/{siteUri}/alarm/activeAlarm")
-	public FCSDKResponse queryActiveAlarms(@PathVariable String siteUri, 
+	@RequestMapping("/{siteId}/alarm/activeAlarm")
+	public FCSDKResponse queryActiveAlarms(@PathVariable String siteId, 
 			@RequestParam(value="limit", defaultValue="10", required=false) int limit, 
 			@RequestParam(value="offset", defaultValue="0", required=false) int offset, 
 			HttpSession session) {
@@ -78,7 +78,7 @@ public class AlarmController {
 		ActiveAlarmQueryParams par = new ActiveAlarmQueryParams();
 		par.setLimit(limit);
 		par.setOffset(offset);
-		siteUri = "/service/sites/" + siteUri;
+		String siteUri = String.format("/service/sites/%s", siteId);
 		FCSDKResponse<PageList<Alarm>> queryActiveAlarms = alarmResource.queryActiveAlarms(par, siteUri);
 		return queryActiveAlarms;
 	}
@@ -108,8 +108,8 @@ public class AlarmController {
 	 * </pre>
 	 * </code>
 	 */
-	@RequestMapping("/{siteUri}/alarm/event")
-	public FCSDKResponse queryEvents(@PathVariable String siteUri, 
+	@RequestMapping("/{siteId}/alarm/event")
+	public FCSDKResponse queryEvents(@PathVariable String siteId, 
 			@RequestParam(value="limit", defaultValue="10", required=false) int limit, 
 			@RequestParam(value="offset", defaultValue="0", required=false) int offset, 
 			HttpSession session) {
@@ -117,7 +117,7 @@ public class AlarmController {
 		EventQueryParams par = new EventQueryParams();
 		par.setLimit(limit);
 		par.setOffset(offset);
-		siteUri = "/service/sites/" + siteUri;
+		String siteUri = String.format("/service/sites/%s", siteId);
 		FCSDKResponse<PageList<Event>> queryEvents = alarmResource.queryEvents(par, siteUri);
 		return queryEvents;
 	}
@@ -162,8 +162,8 @@ public class AlarmController {
 	 * </pre>	 
 	 * </code>
 	 */
-	@RequestMapping("/{siteUri}/alarm/historyAlarm")
-	public FCSDKResponse queryHistoryAlarms(@PathVariable String siteUri, 
+	@RequestMapping("/{siteId}/alarm/historyAlarm")
+	public FCSDKResponse queryHistoryAlarms(@PathVariable String siteId, 
 			@RequestParam(value="limit", defaultValue="10", required=false) int limit, 
 			@RequestParam(value="offset", defaultValue="0", required=false) int offset, 
 			HttpSession session) {
@@ -171,7 +171,7 @@ public class AlarmController {
 		HistoryAlarmQueryParams par = new HistoryAlarmQueryParams();
 		par.setLimit(limit);
 		par.setOffset(offset);
-		siteUri = "/service/sites/" + siteUri;
+		String siteUri = String.format("/service/sites/%s", siteId);
 		FCSDKResponse<PageList<HistoryAlarm>> queryHistoryAlarms = alarmResource.queryHistoryAlarms(par, siteUri);
 		return queryHistoryAlarms;
 	}
@@ -208,13 +208,13 @@ public class AlarmController {
 	 * </pre>	 
 	 * </code>
 	 */
-	@RequestMapping("/{siteUri}/alarm/thresold")
-	public FCSDKResponse queryThresholds(@PathVariable String siteUri, 
+	@RequestMapping("/{siteId}/alarm/thresold")
+	public FCSDKResponse queryThresholds(@PathVariable String siteId, 
 			@RequestParam(value="limit", defaultValue="10", required=false) int limit, 
 			@RequestParam(value="offset", defaultValue="0", required=false) int offset, 
 			HttpSession session) {
 		AlarmResource alarmResource = ServiceFactory.getService(AlarmResource.class, Utils.initLoginClientProviderBean());
-		siteUri = "/service/sites/" + siteUri;
+		String siteUri = String.format("/service/sites/%s", siteId);
 		FCSDKResponse<QueryThresholdsResp> queryThresholds = alarmResource.queryThresholds(siteUri);
 		return queryThresholds;
 	}
