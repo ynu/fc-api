@@ -2,6 +2,7 @@ package com.liudonghua.api.fc.rest;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +13,8 @@ import com.huawei.esdk.fusioncompute.local.model.vm.QueryVmsReq;
 import com.huawei.esdk.fusioncompute.local.model.vm.VmInfo;
 import com.huawei.esdk.fusioncompute.local.resources.vm.VmResource;
 import com.liudonghua.api.fc.util.Utils;
+
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/site")
@@ -117,7 +120,8 @@ public class VmController {
 	 *   }
 	 * }
 	 */
-	@RequestMapping("/{siteId}/vmResource/")
+	@ApiOperation(value = "分页查询虚拟机信息", notes = "根据siteId以及可选的limit/offset分页查询虚拟机信息")
+	@RequestMapping(path="/{siteId}/vmResource/", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<PageList<VmInfo>> queryVMs(@PathVariable String siteId,
 			@RequestParam(name = "limit", required = false, defaultValue = "20") int limit,
 			@RequestParam(name = "offset", required = false, defaultValue = "0") int offset) {
@@ -330,7 +334,8 @@ public class VmController {
 	 *   }
 	 * }
 	 */
-	@RequestMapping("/{siteId}/vmResource/{vmId}")
+	@ApiOperation(value = "查询虚拟机详情 ", notes = "根据siteId/vmId查询虚拟机详情 ")
+	@RequestMapping(path="/{siteId}/vmResource/{vmId}", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<VmInfo> queryVM(@PathVariable String siteId, @PathVariable String vmId) {
 		VmResource vmResource = ServiceFactory.getService(VmResource.class, Utils.initLoginClientProviderBean());
 		String vmUri = String.format("/service/sites/%s/vms/%s", siteId, vmId);

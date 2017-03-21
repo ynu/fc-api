@@ -2,6 +2,7 @@ package com.liudonghua.api.fc.rest;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +14,8 @@ import com.huawei.esdk.fusioncompute.local.model.storage.Volume;
 import com.huawei.esdk.fusioncompute.local.model.storage.VolumeQueryParams;
 import com.huawei.esdk.fusioncompute.local.resources.storage.VolumeResource;
 import com.liudonghua.api.fc.util.Utils;
+
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/site")
@@ -77,7 +80,8 @@ public class VolumeController {
 	 *   }
 	 * }
 	 */
-	@RequestMapping("/{siteId}/volumeResource/")
+	@ApiOperation(value = "分页查询卷列表", notes = "根据siteId以及可选的limit/offset分页查询卷列表")
+	@RequestMapping(path="/{siteId}/volumeResource/", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<PageList<Volume>> queryVolumes(@PathVariable String siteId,
 			@RequestParam(name = "limit", required = false, defaultValue = "20") int limit,
 			@RequestParam(name = "offset", required = false, defaultValue = "0") int offset) {
@@ -144,7 +148,8 @@ public class VolumeController {
 	 *   }
 	 * }
 	 */
-	@RequestMapping("/{siteId}/volumeResource/{volumeId}")
+	@ApiOperation(value = "查询指定卷", notes = "根据siteId/volumeId查询指定卷")
+	@RequestMapping(path="/{siteId}/volumeResource/{volumeId}", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<Volume> queryVolume(@PathVariable String siteId, @PathVariable String volumeId, 
 			@RequestParam(name="refreshFlag", required=false, defaultValue="false") boolean refreshFlag) {
 		VolumeResource volumeResource = ServiceFactory.getService(VolumeResource.class, Utils.initLoginClientProviderBean());
@@ -162,7 +167,8 @@ public class VolumeController {
 	 * @return
 
 	 */
-	@RequestMapping("/{siteId}/volumeResource/datastoreVolumes/{dataStoreId}")
+	@ApiOperation(value = "分页根据DataStore查询所有卷", notes = "根据siteId/dataStoreId以及可选的limit/offset分页根据DataStore查询所有卷")
+	@RequestMapping(path="/{siteId}/volumeResource/datastoreVolumes/{dataStoreId}", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<PageList<QueryDatastoreVolumeResp>> queryDatastoreVolumes(@PathVariable String siteId, 
 			@PathVariable String dataStoreId,
 			@RequestParam(name = "limit", required = false, defaultValue = "20") int limit,

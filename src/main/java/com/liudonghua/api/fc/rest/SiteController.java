@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.huawei.esdk.fusioncompute.local.ServiceFactory;
@@ -13,6 +14,8 @@ import com.huawei.esdk.fusioncompute.local.model.FCSDKResponse;
 import com.huawei.esdk.fusioncompute.local.model.site.SiteBasicInfo;
 import com.huawei.esdk.fusioncompute.local.resources.site.SiteResource;
 import com.liudonghua.api.fc.util.Utils;
+
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/site")
@@ -38,8 +41,9 @@ public class SiteController {
 	 * </pre>
 	 * </code>
 	 */
-	@RequestMapping("/")
-	public FCSDKResponse querySites(HttpSession session) {
+	@ApiOperation(value = "查询所有站点信息", notes = "查询所有站点信息")
+	@RequestMapping(path="/", method = RequestMethod.GET, produces = "application/json")
+	public FCSDKResponse<List<SiteBasicInfo>> querySites(HttpSession session) {
 		SiteResource site = ServiceFactory.getService(SiteResource.class, Utils.initLoginClientProviderBean());
 		FCSDKResponse<List<SiteBasicInfo>> sites = site.querySites();
 		return sites;

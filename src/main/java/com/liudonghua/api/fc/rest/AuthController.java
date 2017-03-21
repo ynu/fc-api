@@ -28,6 +28,7 @@ import com.liudonghua.api.fc.util.Utils;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/auth")
@@ -59,7 +60,8 @@ public class AuthController {
         userDb.put("api", Arrays.asList("user", "admin"));
     }
 
-	@RequestMapping("/login")
+	@ApiOperation(value = "登录获取Token", notes = "根据username/password获取Token")
+	@RequestMapping(path="/login", method = RequestMethod.GET, produces = "application/json")
     public LoginResponse login(@RequestParam(name="username") String username, 
     		@RequestParam(name="password") String password)
         throws ServletException {

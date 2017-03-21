@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.huawei.esdk.fusioncompute.local.ServiceFactory;
@@ -18,6 +19,8 @@ import com.huawei.esdk.fusioncompute.local.model.site.SiteBasicInfo;
 import com.huawei.esdk.fusioncompute.local.resources.cluster.ClusterResource;
 import com.huawei.esdk.fusioncompute.local.resources.site.SiteResource;
 import com.liudonghua.api.fc.util.Utils;
+
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/site")
@@ -53,8 +56,9 @@ public class ClusterController {
 	 * </pre>	 
 	 * </code>
 	 */
-	@RequestMapping("/{siteId}/cluster")
-	public FCSDKResponse queryClusters(@PathVariable String siteId, HttpSession session) {
+	@ApiOperation(value = "查询集群列表", notes = "根据siteId查询集群列表")
+	@RequestMapping(path="/{siteId}/cluster", method = RequestMethod.GET, produces = "application/json")
+	public FCSDKResponse<List<ClusterBasicInfo>> queryClusters(@PathVariable String siteId, HttpSession session) {
 		ClusterResource clusterResource = ServiceFactory.getService(ClusterResource.class, Utils.initLoginClientProviderBean());
 //		List<String> clusterUrns = new ArrayList<String>();
 //		clusterUrns.add("urn:sites:3EB607A6:clusters:10");
@@ -307,11 +311,11 @@ public class ClusterController {
 	 * </pre>	 
 	 * </code>
 	 */
-	@RequestMapping("/{siteId}/cluster/{clusterUri}")
-	public FCSDKResponse queryCluster(@PathVariable String siteId, @PathVariable String clusterUri, HttpSession session) {
+	@ApiOperation(value = "查询集群详情", notes = "根据siteId/clusterId查询集群详情")
+	@RequestMapping(path="/{siteId}/cluster/{clusterId}", method = RequestMethod.GET, produces = "application/json")
+	public FCSDKResponse<ClusterInfo> queryCluster(@PathVariable String siteId, @PathVariable String clusterId) {
 		ClusterResource clusterResource = ServiceFactory.getService(ClusterResource.class, Utils.initLoginClientProviderBean());
-		String siteUri = String.format("/service/sites/%s", siteId);
-		clusterUri = siteUri + "/clusters/" + clusterUri;
+		String clusterUri = String.format("/service/sites/%s/clusters/%s", siteId, clusterId);
 		FCSDKResponse<ClusterInfo> queryCluster = clusterResource.queryCluster(clusterUri);
 		return queryCluster;
 	}
@@ -334,11 +338,11 @@ public class ClusterController {
 	 * </pre>	 
 	 * </code>
 	 */
-	@RequestMapping("/{siteId}/computerResource/{clusterUri}")
-	public FCSDKResponse queryComputeResource(@PathVariable String siteId, @PathVariable String clusterUri, HttpSession session) {
+	@ApiOperation(value = "查询集群内计算资源统计信息", notes = "根据siteId/clusterId查询集群内计算资源统计信息")
+	@RequestMapping(path="/{siteId}/computerResource/{clusterId}", method = RequestMethod.GET, produces = "application/json")
+	public FCSDKResponse<ComputeResource> queryComputeResource(@PathVariable String siteId, @PathVariable String clusterId) {
 		ClusterResource clusterResource = ServiceFactory.getService(ClusterResource.class, Utils.initLoginClientProviderBean());
-		String siteUri = String.format("/service/sites/%s", siteId);
-		clusterUri = siteUri + "/clusters/" + clusterUri;
+		String clusterUri = String.format("/service/sites/%s/clusters/%s", siteId, clusterId);
 		FCSDKResponse<ComputeResource> queryComputeResource = clusterResource.queryComputeResource(clusterUri);
 		return queryComputeResource;
 	}
