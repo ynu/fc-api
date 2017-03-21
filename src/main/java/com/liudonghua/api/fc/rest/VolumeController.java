@@ -16,6 +16,7 @@ import com.huawei.esdk.fusioncompute.local.resources.storage.VolumeResource;
 import com.liudonghua.api.fc.util.Utils;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping("/site")
@@ -82,7 +83,8 @@ public class VolumeController {
 	 */
 	@ApiOperation(value = "分页查询卷列表", notes = "根据siteId以及可选的limit/offset分页查询卷列表")
 	@RequestMapping(path="/{siteId}/volumeResource/", method = RequestMethod.GET, produces = "application/json")
-	public FCSDKResponse<PageList<Volume>> queryVolumes(@PathVariable String siteId,
+	public FCSDKResponse<PageList<Volume>> queryVolumes(
+			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId,
 			@RequestParam(name = "limit", required = false, defaultValue = "20") int limit,
 			@RequestParam(name = "offset", required = false, defaultValue = "0") int offset) {
 		VolumeResource volumeResource = ServiceFactory.getService(VolumeResource.class, Utils.initLoginClientProviderBean());
@@ -150,7 +152,9 @@ public class VolumeController {
 	 */
 	@ApiOperation(value = "查询指定卷", notes = "根据siteId/volumeId查询指定卷")
 	@RequestMapping(path="/{siteId}/volumeResource/{volumeId}", method = RequestMethod.GET, produces = "application/json")
-	public FCSDKResponse<Volume> queryVolume(@PathVariable String siteId, @PathVariable String volumeId, 
+	public FCSDKResponse<Volume> queryVolume(
+			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
+			@ApiParam(name = "volumeId", value = "The id of the volume", defaultValue = "1245") @PathVariable String volumeId, 
 			@RequestParam(name="refreshFlag", required=false, defaultValue="false") boolean refreshFlag) {
 		VolumeResource volumeResource = ServiceFactory.getService(VolumeResource.class, Utils.initLoginClientProviderBean());
 		String volumeUri = String.format("/service/sites/%s/volumes/%s", siteId, volumeId);
@@ -169,8 +173,9 @@ public class VolumeController {
 	 */
 	@ApiOperation(value = "分页根据DataStore查询所有卷", notes = "根据siteId/dataStoreId以及可选的limit/offset分页根据DataStore查询所有卷")
 	@RequestMapping(path="/{siteId}/volumeResource/datastoreVolumes/{dataStoreId}", method = RequestMethod.GET, produces = "application/json")
-	public FCSDKResponse<PageList<QueryDatastoreVolumeResp>> queryDatastoreVolumes(@PathVariable String siteId, 
-			@PathVariable String dataStoreId,
+	public FCSDKResponse<PageList<QueryDatastoreVolumeResp>> queryDatastoreVolumes(
+			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
+			@ApiParam(name = "dataStoreId", value = "The id of the dataStore", defaultValue = "1") @PathVariable String dataStoreId,
 			@RequestParam(name = "limit", required = false, defaultValue = "20") int limit,
 			@RequestParam(name = "offset", required = false, defaultValue = "0") int offset) {
 		VolumeResource volumeResource = ServiceFactory.getService(VolumeResource.class, Utils.initLoginClientProviderBean());

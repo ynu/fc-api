@@ -15,6 +15,7 @@ import com.huawei.esdk.fusioncompute.local.resources.vm.VmResource;
 import com.liudonghua.api.fc.util.Utils;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping("/site")
@@ -122,7 +123,8 @@ public class VmController {
 	 */
 	@ApiOperation(value = "分页查询虚拟机信息", notes = "根据siteId以及可选的limit/offset分页查询虚拟机信息")
 	@RequestMapping(path="/{siteId}/vmResource/", method = RequestMethod.GET, produces = "application/json")
-	public FCSDKResponse<PageList<VmInfo>> queryVMs(@PathVariable String siteId,
+	public FCSDKResponse<PageList<VmInfo>> queryVMs(
+			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId,
 			@RequestParam(name = "limit", required = false, defaultValue = "20") int limit,
 			@RequestParam(name = "offset", required = false, defaultValue = "0") int offset) {
 		VmResource vmResource = ServiceFactory.getService(VmResource.class, Utils.initLoginClientProviderBean());
@@ -336,7 +338,9 @@ public class VmController {
 	 */
 	@ApiOperation(value = "查询虚拟机详情 ", notes = "根据siteId/vmId查询虚拟机详情 ")
 	@RequestMapping(path="/{siteId}/vmResource/{vmId}", method = RequestMethod.GET, produces = "application/json")
-	public FCSDKResponse<VmInfo> queryVM(@PathVariable String siteId, @PathVariable String vmId) {
+	public FCSDKResponse<VmInfo> queryVM(
+			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
+			@ApiParam(name = "vmId", value = "The id of the vm", defaultValue = "i-0000027D") @PathVariable String vmId) {
 		VmResource vmResource = ServiceFactory.getService(VmResource.class, Utils.initLoginClientProviderBean());
 		String vmUri = String.format("/service/sites/%s/vms/%s", siteId, vmId);
 		FCSDKResponse<VmInfo> queryVM = vmResource.queryVM(vmUri);

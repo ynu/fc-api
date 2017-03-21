@@ -18,6 +18,7 @@ import com.huawei.esdk.fusioncompute.local.resources.host.HostResource;
 import com.liudonghua.api.fc.util.Utils;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping("/site")
@@ -97,7 +98,8 @@ public class HostController {
 	 */
 	@ApiOperation(value = "查询主机列表", notes = "根据siteId以及可选的limit/offset查询主机列表")
 	@RequestMapping(path="/{siteId}/hostResource/", method = RequestMethod.GET, produces = "application/json")
-	public FCSDKResponse<PageList<HostBasicInfo>> queryHostList(@PathVariable String siteId,
+	public FCSDKResponse<PageList<HostBasicInfo>> queryHostList(
+			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId,
 			@RequestParam(name = "limit", required = false, defaultValue = "20") int limit,
 			@RequestParam(name = "offset", required = false, defaultValue = "0") int offset) {
 		HostResource hostResource = ServiceFactory.getService(HostResource.class, Utils.initLoginClientProviderBean());
@@ -174,7 +176,9 @@ public class HostController {
 	 */
 	@ApiOperation(value = "查询指定主机", notes = "根据siteId/hostId查询指定主机")
 	@RequestMapping(path="/{siteId}/hostResource/{hostId}", method = RequestMethod.GET, produces = "application/json")
-	public FCSDKResponse<HostInfo> queryHost(@PathVariable String siteId, @PathVariable String hostId) {
+	public FCSDKResponse<HostInfo> queryHost(
+			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
+			@ApiParam(name = "hostId", value = "The id of the host", defaultValue = "390") @PathVariable String hostId) {
 		HostResource hostResource = ServiceFactory.getService(HostResource.class, Utils.initLoginClientProviderBean());
 		String hostUri = String.format("/service/sites/%s/hosts/%s", siteId, hostId);
 		FCSDKResponse<HostInfo> queryHost = hostResource.queryHost(hostUri);
@@ -204,7 +208,8 @@ public class HostController {
 	 */
 	@ApiOperation(value = "查询主机列表统计信息", notes = "根据siteId以及可选的scope查询主机列表统计信息")
 	@RequestMapping(path="/{siteId}/hostResource/hostsUsage", method = RequestMethod.GET, produces = "application/json")
-	public FCSDKResponse<QueryHostsUsageResp> queryHostsUsage(@PathVariable String siteId,
+	public FCSDKResponse<QueryHostsUsageResp> queryHostsUsage(
+			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId,
 			@RequestParam(name = "scope ", required = false, defaultValue = "") String scope) {
 		HostResource hostResource = ServiceFactory.getService(HostResource.class, Utils.initLoginClientProviderBean());
 		String siteUri = String.format("/service/sites/%s", siteId);
@@ -234,7 +239,9 @@ public class HostController {
 	 */
 	@ApiOperation(value = "查询指定主机计算资源使用情况", notes = "根据siteId/hostId查询指定主机计算资源使用情况")
 	@RequestMapping(path="/{siteId}/hostResource/hostsUsage/{hostId}", method = RequestMethod.GET, produces = "application/json")
-	public FCSDKResponse<QueryHostUsageResp> queryHostUsage(@PathVariable String siteId, @PathVariable String hostId) {
+	public FCSDKResponse<QueryHostUsageResp> queryHostUsage(
+			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
+			@ApiParam(name = "hostId", value = "The id of the host", defaultValue = "390") @PathVariable String hostId) {
 		HostResource hostResource = ServiceFactory.getService(HostResource.class, Utils.initLoginClientProviderBean());
 		String hostUri = String.format("/service/sites/%s/hosts/%s", siteId, hostId);
 		FCSDKResponse<QueryHostUsageResp> queryHostUsage = hostResource.queryHostUsage(hostUri);

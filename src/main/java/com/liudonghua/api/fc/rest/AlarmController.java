@@ -19,10 +19,20 @@ import com.huawei.esdk.fusioncompute.local.model.alarm.QueryThresholdsResp;
 import com.huawei.esdk.fusioncompute.local.resources.alarm.AlarmResource;
 import com.liudonghua.api.fc.util.Utils;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.Authorization;
+import io.swagger.annotations.AuthorizationScope;
 
+@Api(value = "/site", authorizations = {
+		  @Authorization(value = "token",
+		  scopes = {
+		    @AuthorizationScope(scope = "read:alarm", description = "read your pets")
+		  })
+		}, tags = "alarm")
 @RestController
 @RequestMapping("/site")
 public class AlarmController {
@@ -69,7 +79,12 @@ public class AlarmController {
 	 */
 	@ApiOperation(value = "查询活动告警", notes = "根据siteId以及可选的limit/offset查询活动告警")
 	@RequestMapping(path="/{siteId}/alarm/activeAlarm", method = RequestMethod.GET, produces = "application/json")
-	public FCSDKResponse<PageList<Alarm>> queryActiveAlarms(@PathVariable String siteId, 
+//	@ApiImplicitParams({
+//	    @ApiImplicitParam(name = "token", defaultValue = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGkiLCJyb2xlcyI6WyJ1c2VyIiwiYWRtaW4iXSwiaWF0IjoxNDg5OTczOTc0fQ.WgxX1uKeTcsk92ddXma8WLfHJXckKxWzL-NshxEynjg", 
+//	                     required = true, dataType = "string", paramType = "query")
+//	})
+	public FCSDKResponse<PageList<Alarm>> queryActiveAlarms(
+			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
 			@RequestParam(value="limit", defaultValue="10", required=false) int limit, 
 			@RequestParam(value="offset", defaultValue="0", required=false) int offset) {
 		AlarmResource alarmResource = ServiceFactory.getService(AlarmResource.class, Utils.initLoginClientProviderBean());
@@ -108,7 +123,8 @@ public class AlarmController {
 	 */
 	@ApiOperation(value = "查询事件列表功能", notes = "根据siteId以及可选的limit/offset查询事件列表功能")
 	@RequestMapping(path="/{siteId}/alarm/event", method = RequestMethod.GET, produces = "application/json")
-	public FCSDKResponse<PageList<Event>> queryEvents(@PathVariable String siteId, 
+	public FCSDKResponse<PageList<Event>> queryEvents(
+			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
 			@RequestParam(value="limit", defaultValue="10", required=false) int limit, 
 			@RequestParam(value="offset", defaultValue="0", required=false) int offset) {
 		AlarmResource alarmResource = ServiceFactory.getService(AlarmResource.class, Utils.initLoginClientProviderBean());
@@ -162,7 +178,8 @@ public class AlarmController {
 	 */
 	@ApiOperation(value = "查询历史告警", notes = "根据siteId以及可选的limit/offset查询历史告警")
 	@RequestMapping(path="/{siteId}/alarm/historyAlarm", method = RequestMethod.GET, produces = "application/json")
-	public FCSDKResponse<PageList<HistoryAlarm>> queryHistoryAlarms(@PathVariable String siteId, 
+	public FCSDKResponse<PageList<HistoryAlarm>> queryHistoryAlarms(
+			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
 			@RequestParam(value="limit", defaultValue="10", required=false) int limit, 
 			@RequestParam(value="offset", defaultValue="0", required=false) int offset) {
 		AlarmResource alarmResource = ServiceFactory.getService(AlarmResource.class, Utils.initLoginClientProviderBean());
@@ -208,7 +225,8 @@ public class AlarmController {
 	 */
 	@ApiOperation(value = "查询所有阈值项信息", notes = "根据siteId以及可选的limit/offset查询所有阈值项信息")
 	@RequestMapping(path="/{siteId}/alarm/thresold", method = RequestMethod.GET, produces = "application/json")
-	public FCSDKResponse<QueryThresholdsResp> queryThresholds(@PathVariable String siteId, 
+	public FCSDKResponse<QueryThresholdsResp> queryThresholds(
+			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
 			@RequestParam(value="limit", defaultValue="10", required=false) int limit, 
 			@RequestParam(value="offset", defaultValue="0", required=false) int offset) {
 		AlarmResource alarmResource = ServiceFactory.getService(AlarmResource.class, Utils.initLoginClientProviderBean());

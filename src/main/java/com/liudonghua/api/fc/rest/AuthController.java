@@ -7,24 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.huawei.esdk.fusioncompute.local.ServiceFactory;
-import com.huawei.esdk.fusioncompute.local.model.ClientProviderBean;
-import com.huawei.esdk.fusioncompute.local.model.FCSDKResponse;
-import com.huawei.esdk.fusioncompute.local.model.SDKCommonResp;
-import com.huawei.esdk.fusioncompute.local.model.common.LoginResp;
-import com.huawei.esdk.fusioncompute.local.resources.common.AuthenticateResource;
 import com.liudonghua.api.fc.Constants;
-import com.liudonghua.api.fc.util.Utils;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

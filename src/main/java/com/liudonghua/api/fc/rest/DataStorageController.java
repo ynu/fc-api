@@ -16,6 +16,7 @@ import com.huawei.esdk.fusioncompute.local.resources.storage.DataStorageResource
 import com.liudonghua.api.fc.util.Utils;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping("/site")
@@ -75,7 +76,8 @@ public class DataStorageController {
 	 */
 	@ApiOperation(value = "分页查询站点/主机/集群下所有数据存储", notes = "根据siteId以及可选的limit/offset分页查询站点/主机/集群下所有数据存储")
 	@RequestMapping(path="/{siteId}/dataStorage/", method = RequestMethod.GET, produces = "application/json")
-	public FCSDKResponse<PageList<Datastore>> queryDataStores(@PathVariable String siteId,
+	public FCSDKResponse<PageList<Datastore>> queryDataStores(
+			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId,
 			@RequestParam(name = "limit", required = false, defaultValue = "20") int limit,
 			@RequestParam(name = "offset", required = false, defaultValue = "0") int offset) {
 		DataStorageResource dataStorageResource = ServiceFactory.getService(DataStorageResource.class, Utils.initLoginClientProviderBean());
@@ -138,7 +140,10 @@ public class DataStorageController {
 	 */
 	@ApiOperation(value = "分页查询集群/主机下可模板部署的所有数据存储", notes = "根据siteId以及可选的limit/offset分页查询集群/主机下可模板部署的所有数据存储")
 	@RequestMapping(path="/{siteId}/dataStorage/{dataStoreId}/{hostId}/availableDatastore", method = RequestMethod.GET, produces = "application/json")
-	public FCSDKResponse<PageList<Datastore>> queryAvailableDatastore(@PathVariable String siteId, @PathVariable String dataStoreId, @PathVariable String hostId,
+	public FCSDKResponse<PageList<Datastore>> queryAvailableDatastore(
+			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
+			@ApiParam(name = "dataStoreId", value = "The id of the dataStore", defaultValue = "1") @PathVariable String dataStoreId, 
+			@ApiParam(name = "hostId", value = "The id of the host", defaultValue = "134") @PathVariable String hostId,
 			@RequestParam(name = "limit", required = false, defaultValue = "20") int limit,
 			@RequestParam(name = "offset", required = false, defaultValue = "0") int offset) {
 		DataStorageResource dataStorageResource = ServiceFactory.getService(DataStorageResource.class, Utils.initLoginClientProviderBean());
@@ -202,7 +207,8 @@ public class DataStorageController {
 	 */
 	@ApiOperation(value = "查询指定数据存储", notes = "根据siteId/datastoreId查询指定数据存储")
 	@RequestMapping(path="/{siteId}/dataStorage/{datastoreId}", method = RequestMethod.GET, produces = "application/json")
-	public FCSDKResponse<Datastore> queryDataStore(@PathVariable String siteId, @PathVariable int datastoreId) {
+	public FCSDKResponse<Datastore> queryDataStore(
+			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, @PathVariable int datastoreId) {
 		DataStorageResource dataStorageResource = ServiceFactory.getService(DataStorageResource.class, Utils.initLoginClientProviderBean());
 		String siteUri = String.format("/service/sites/%s", siteId);
 		String datastoreUri = siteUri + "/datastores/" + datastoreId;
