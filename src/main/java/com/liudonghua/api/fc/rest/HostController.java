@@ -19,6 +19,7 @@ import com.liudonghua.api.fc.util.Utils;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.Authorization;
 
 @RestController
 @RequestMapping("/site")
@@ -96,7 +97,7 @@ public class HostController {
 	 *   }
 	 * }
 	 */
-	@ApiOperation(value = "查询主机列表", notes = "根据siteId以及可选的limit/offset查询主机列表")
+	@ApiOperation(value = "查询主机列表", notes = "根据siteId以及可选的limit/offset查询主机列表", authorizations={@Authorization(value = "token")})
 	@RequestMapping(path="/{siteId}/hostResource/", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<PageList<HostBasicInfo>> queryHostList(
 			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId,
@@ -174,7 +175,7 @@ public class HostController {
 	 *   }
 	 * }
 	 */
-	@ApiOperation(value = "查询指定主机", notes = "根据siteId/hostId查询指定主机")
+	@ApiOperation(value = "查询指定主机", notes = "根据siteId/hostId查询指定主机", authorizations={@Authorization(value = "token")})
 	@RequestMapping(path="/{siteId}/hostResource/{hostId}", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<HostInfo> queryHost(
 			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
@@ -206,7 +207,7 @@ public class HostController {
 	 *   }
 	 * }
 	 */
-	@ApiOperation(value = "查询主机列表统计信息", notes = "根据siteId以及可选的scope查询主机列表统计信息")
+	@ApiOperation(value = "查询主机列表统计信息", notes = "根据siteId以及可选的scope查询主机列表统计信息", authorizations={@Authorization(value = "token")})
 	@RequestMapping(path="/{siteId}/hostResource/hostsUsage", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<QueryHostsUsageResp> queryHostsUsage(
 			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId,
@@ -237,7 +238,7 @@ public class HostController {
 	 *   }
 	 * }
 	 */
-	@ApiOperation(value = "查询指定主机计算资源使用情况", notes = "根据siteId/hostId查询指定主机计算资源使用情况")
+	@ApiOperation(value = "查询指定主机计算资源使用情况", notes = "根据siteId/hostId查询指定主机计算资源使用情况", authorizations={@Authorization(value = "token")})
 	@RequestMapping(path="/{siteId}/hostResource/hostsUsage/{hostId}", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<QueryHostUsageResp> queryHostUsage(
 			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 

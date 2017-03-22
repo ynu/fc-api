@@ -3,10 +3,13 @@ package com.liudonghua.api.fc;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.google.common.base.Predicates;
+
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.ApiKeyVehicle;
@@ -22,7 +25,7 @@ public class SwaggerConfig {
 				.useDefaultResponseMessages(false)
 				.select()
 				.apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.any())
+				.paths(Predicates.not(PathSelectors.regex("/error.*")))
 				.build()
 				.apiInfo(apiInfo());
 	}
@@ -32,7 +35,7 @@ public class SwaggerConfig {
 				.title("FC-API Swagger Documentation")
 				.description("FC-API Swagger Documentation")
 				.termsOfServiceUrl("http://www.ynu.edu.cn")
-				.contact("liudonghua123@gmail.com")
+				.contact(new Contact("liudonghua", "liudonghua.com", "liudonghua123@gmail.com"))
 				.license("Apache License Version 2.0")
 				.licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
 				.version("2.0")

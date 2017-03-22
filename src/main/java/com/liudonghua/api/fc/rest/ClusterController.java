@@ -17,6 +17,7 @@ import com.liudonghua.api.fc.util.Utils;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.Authorization;
 
 @RestController
 @RequestMapping("/site")
@@ -52,7 +53,7 @@ public class ClusterController {
 	 * </pre>	 
 	 * </code>
 	 */
-	@ApiOperation(value = "查询集群列表", notes = "根据siteId查询集群列表")
+	@ApiOperation(value = "查询集群列表", notes = "根据siteId查询集群列表", authorizations={@Authorization(value = "token")})
 	@RequestMapping(path="/{siteId}/cluster", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<List<ClusterBasicInfo>> queryClusters(
 			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId) {
@@ -308,7 +309,7 @@ public class ClusterController {
 	 * </pre>	 
 	 * </code>
 	 */
-	@ApiOperation(value = "查询集群详情", notes = "根据siteId/clusterId查询集群详情")
+	@ApiOperation(value = "查询集群详情", notes = "根据siteId/clusterId查询集群详情", authorizations={@Authorization(value = "token")})
 	@RequestMapping(path="/{siteId}/cluster/{clusterId}", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<ClusterInfo> queryCluster(
 			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
@@ -337,7 +338,7 @@ public class ClusterController {
 	 * </pre>	 
 	 * </code>
 	 */
-	@ApiOperation(value = "查询集群内计算资源统计信息", notes = "根据siteId/clusterId查询集群内计算资源统计信息")
+	@ApiOperation(value = "查询集群内计算资源统计信息", notes = "根据siteId/clusterId查询集群内计算资源统计信息", authorizations={@Authorization(value = "token")})
 	@RequestMapping(path="/{siteId}/computerResource/{clusterId}", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<ComputeResource> queryComputeResource(
 			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 

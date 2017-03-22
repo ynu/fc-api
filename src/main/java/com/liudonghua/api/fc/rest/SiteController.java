@@ -13,6 +13,7 @@ import com.huawei.esdk.fusioncompute.local.resources.site.SiteResource;
 import com.liudonghua.api.fc.util.Utils;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 
 @RestController
 @RequestMapping("/site")
@@ -38,7 +39,7 @@ public class SiteController {
 	 * </pre>
 	 * </code>
 	 */
-	@ApiOperation(value = "查询所有站点信息", notes = "查询所有站点信息")
+	@ApiOperation(value = "查询所有站点信息", notes = "查询所有站点信息", authorizations={@Authorization(value = "token")})
 	@RequestMapping(path="/", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<List<SiteBasicInfo>> querySites() {
 		SiteResource site = ServiceFactory.getService(SiteResource.class, Utils.initLoginClientProviderBean());

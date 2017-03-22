@@ -28,10 +28,7 @@ import io.swagger.annotations.Authorization;
 import io.swagger.annotations.AuthorizationScope;
 
 @Api(value = "/site", authorizations = {
-		  @Authorization(value = "token",
-		  scopes = {
-		    @AuthorizationScope(scope = "read:alarm", description = "read your pets")
-		  })
+		  @Authorization(value = "token")
 		}, tags = "alarm")
 @RestController
 @RequestMapping("/site")
@@ -77,16 +74,12 @@ public class AlarmController {
 	 * </pre>
 	 * </code>
 	 */
-	@ApiOperation(value = "查询活动告警", notes = "根据siteId以及可选的limit/offset查询活动告警")
+	@ApiOperation(value = "查询活动告警", notes = "根据siteId以及可选的limit/offset查询活动告警", authorizations={@Authorization(value = "token")})
 	@RequestMapping(path="/{siteId}/alarm/activeAlarm", method = RequestMethod.GET, produces = "application/json")
-//	@ApiImplicitParams({
-//	    @ApiImplicitParam(name = "token", defaultValue = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGkiLCJyb2xlcyI6WyJ1c2VyIiwiYWRtaW4iXSwiaWF0IjoxNDg5OTczOTc0fQ.WgxX1uKeTcsk92ddXma8WLfHJXckKxWzL-NshxEynjg", 
-//	                     required = true, dataType = "string", paramType = "query")
-//	})
 	public FCSDKResponse<PageList<Alarm>> queryActiveAlarms(
 			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
 			@RequestParam(value="limit", defaultValue="10", required=false) int limit, 
-			@RequestParam(value="offset", defaultValue="0", required=false) int offset) {
+			@ApiParam(name = "offset", value = "The value of offset", defaultValue = "0") @RequestParam(value="offset", defaultValue="0", required=false) int offset) {
 		AlarmResource alarmResource = ServiceFactory.getService(AlarmResource.class, Utils.initLoginClientProviderBean());
 		ActiveAlarmQueryParams par = new ActiveAlarmQueryParams();
 		par.setLimit(limit);
@@ -121,7 +114,7 @@ public class AlarmController {
 	 * </pre>
 	 * </code>
 	 */
-	@ApiOperation(value = "查询事件列表功能", notes = "根据siteId以及可选的limit/offset查询事件列表功能")
+	@ApiOperation(value = "查询事件列表功能", notes = "根据siteId以及可选的limit/offset查询事件列表功能", authorizations={@Authorization(value = "token")})
 	@RequestMapping(path="/{siteId}/alarm/event", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<PageList<Event>> queryEvents(
 			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
@@ -176,7 +169,7 @@ public class AlarmController {
 	 * </pre>	 
 	 * </code>
 	 */
-	@ApiOperation(value = "查询历史告警", notes = "根据siteId以及可选的limit/offset查询历史告警")
+	@ApiOperation(value = "查询历史告警", notes = "根据siteId以及可选的limit/offset查询历史告警", authorizations={@Authorization(value = "token")})
 	@RequestMapping(path="/{siteId}/alarm/historyAlarm", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<PageList<HistoryAlarm>> queryHistoryAlarms(
 			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
@@ -223,7 +216,7 @@ public class AlarmController {
 	 * </pre>	 
 	 * </code>
 	 */
-	@ApiOperation(value = "查询所有阈值项信息", notes = "根据siteId以及可选的limit/offset查询所有阈值项信息")
+	@ApiOperation(value = "查询所有阈值项信息", notes = "根据siteId以及可选的limit/offset查询所有阈值项信息", authorizations={@Authorization(value = "token")})
 	@RequestMapping(path="/{siteId}/alarm/thresold", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<QueryThresholdsResp> queryThresholds(
 			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 

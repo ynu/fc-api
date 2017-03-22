@@ -17,6 +17,7 @@ import com.liudonghua.api.fc.util.Utils;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.Authorization;
 
 @RestController
 @RequestMapping("/site")
@@ -74,7 +75,7 @@ public class DataStorageController {
 	 *   }
 	 * }
 	 */
-	@ApiOperation(value = "分页查询站点/主机/集群下所有数据存储", notes = "根据siteId以及可选的limit/offset分页查询站点/主机/集群下所有数据存储")
+	@ApiOperation(value = "分页查询站点/主机/集群下所有数据存储", notes = "根据siteId以及可选的limit/offset分页查询站点/主机/集群下所有数据存储", authorizations={@Authorization(value = "token")})
 	@RequestMapping(path="/{siteId}/dataStorage/", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<PageList<Datastore>> queryDataStores(
 			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId,
@@ -138,7 +139,7 @@ public class DataStorageController {
 	 *   }
 	 * }
 	 */
-	@ApiOperation(value = "分页查询集群/主机下可模板部署的所有数据存储", notes = "根据siteId以及可选的limit/offset分页查询集群/主机下可模板部署的所有数据存储")
+	@ApiOperation(value = "分页查询集群/主机下可模板部署的所有数据存储", notes = "根据siteId以及可选的limit/offset分页查询集群/主机下可模板部署的所有数据存储", authorizations={@Authorization(value = "token")})
 	@RequestMapping(path="/{siteId}/dataStorage/{dataStoreId}/{hostId}/availableDatastore", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<PageList<Datastore>> queryAvailableDatastore(
 			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
@@ -205,7 +206,7 @@ public class DataStorageController {
 	 *   }
 	 * }
 	 */
-	@ApiOperation(value = "查询指定数据存储", notes = "根据siteId/datastoreId查询指定数据存储")
+	@ApiOperation(value = "查询指定数据存储", notes = "根据siteId/datastoreId查询指定数据存储", authorizations={@Authorization(value = "token")})
 	@RequestMapping(path="/{siteId}/dataStorage/{datastoreId}", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<Datastore> queryDataStore(
 			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, @PathVariable int datastoreId) {

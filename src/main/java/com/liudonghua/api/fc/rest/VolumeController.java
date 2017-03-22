@@ -17,6 +17,7 @@ import com.liudonghua.api.fc.util.Utils;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.Authorization;
 
 @RestController
 @RequestMapping("/site")
@@ -81,7 +82,7 @@ public class VolumeController {
 	 *   }
 	 * }
 	 */
-	@ApiOperation(value = "分页查询卷列表", notes = "根据siteId以及可选的limit/offset分页查询卷列表")
+	@ApiOperation(value = "分页查询卷列表", notes = "根据siteId以及可选的limit/offset分页查询卷列表", authorizations={@Authorization(value = "token")})
 	@RequestMapping(path="/{siteId}/volumeResource/", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<PageList<Volume>> queryVolumes(
 			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId,
@@ -150,7 +151,7 @@ public class VolumeController {
 	 *   }
 	 * }
 	 */
-	@ApiOperation(value = "查询指定卷", notes = "根据siteId/volumeId查询指定卷")
+	@ApiOperation(value = "查询指定卷", notes = "根据siteId/volumeId查询指定卷", authorizations={@Authorization(value = "token")})
 	@RequestMapping(path="/{siteId}/volumeResource/{volumeId}", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<Volume> queryVolume(
 			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
@@ -171,7 +172,7 @@ public class VolumeController {
 	 * @return
 
 	 */
-	@ApiOperation(value = "分页根据DataStore查询所有卷", notes = "根据siteId/dataStoreId以及可选的limit/offset分页根据DataStore查询所有卷")
+	@ApiOperation(value = "分页根据DataStore查询所有卷", notes = "根据siteId/dataStoreId以及可选的limit/offset分页根据DataStore查询所有卷", authorizations={@Authorization(value = "token")})
 	@RequestMapping(path="/{siteId}/volumeResource/datastoreVolumes/{dataStoreId}", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<PageList<QueryDatastoreVolumeResp>> queryDatastoreVolumes(
 			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
