@@ -24,9 +24,9 @@ import io.swagger.annotations.Authorization;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-	
+
 	/**
-	 * @return 
+	 * @return
 	 * <code>
 	 * <pre>
 	 * {
@@ -44,7 +44,7 @@ public class AuthController {
 	 * </pre>
 	 * </code>
 	 */
-	
+
 	private final Map<String, List<String>> userDb = new HashMap<>();
 
     public AuthController() {
@@ -53,15 +53,14 @@ public class AuthController {
 
 	@ApiOperation(value = "登录获取Token", notes = "根据username/password获取Token")
 	@RequestMapping(path="/login", method = RequestMethod.GET, produces = "application/json")
-    public LoginResponse login(@RequestParam(name="username") String username, 
+    public LoginResponse login(@RequestParam(name="username") String username,
     		@RequestParam(name="password") String password)
         throws ServletException {
 		String token = null;
-        if (!StringUtils.isEmpty(username) && !StringUtils.isEmpty(password) 
+        if (!StringUtils.isEmpty(username) && !StringUtils.isEmpty(password)
         		&& username.equals(Constants.FC_DEFAULT_USERNAME)
         		&& password.equals(Constants.FC_DEFAULT_PASSWORD)) {
         	token = Jwts.builder().setSubject(username)
-                    .claim("roles", userDb.get(username)).setIssuedAt(new Date())
                     .signWith(SignatureAlgorithm.HS256, Constants.JWT_DEFAULT_SECRET).compact();
         }
         return new LoginResponse(token);
@@ -74,5 +73,5 @@ public class AuthController {
             this.token = token;
         }
     }
-	
+
 }
