@@ -1,10 +1,8 @@
-# FROM java:8
+FROM openjdk:8
 # 
 # # Install maven
-# RUN apt-get update
-# RUN apt-get install -y maven
-
-FROM maven:3-jdk-8
+RUN apt-get update
+RUN apt-get install -y maven
 
 WORKDIR /app
 
@@ -27,7 +25,7 @@ RUN ["mvn", "clean", "package"]
 # http://goinbigdata.com/docker-run-vs-cmd-vs-entrypoint/
 # https://github.com/tianon/docker-brew-ubuntu-core/blob/010bf9649b1d10e2c34b159a9a9b338d0fdd4939/bionic/Dockerfile
 # https://stackoverflow.com/questions/40122152/how-to-remove-entrypoint-from-parent-image-on-dockerfile
-ENTRYPOINT []
+# ENTRYPOINT []
 
 EXPOSE 8080
 CMD mvn spring-boot:run
