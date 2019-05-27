@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.liudonghua.api</groupId>
 	<artifactId>fc</artifactId>
@@ -16,12 +16,12 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-        <!-- 文件拷贝时的编码 -->  
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>  
-        <!-- 编译时的编码 -->  
-        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>  
-        <io.springfox.swagger2.version>2.6.1</io.springfox.swagger2.version>
+		<!-- 文件拷贝时的编码 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<!-- 编译时的编码 -->
+		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+		<io.springfox.swagger2.version>2.9.2</io.springfox.swagger2.version>
 	</properties>
 
 	<dependencies>
@@ -123,18 +123,18 @@
 			<artifactId>springfox-swagger2</artifactId>
 			<version>${io.springfox.swagger2.version}</version>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>${io.springfox.swagger2.version}</version>
 		</dependency>
-		
-	    <dependency>
-	        <groupId>org.springframework.boot</groupId>
-	        <artifactId>spring-boot-devtools</artifactId>
-	        <optional>true</optional>
-	    </dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
 
 	</dependencies>
 
