@@ -4,8 +4,7 @@
 # RUN apt-get update
 # RUN apt-get install -y maven
 
-# https://github.com/Blarne/docker-maven-jdk8
-FROM karumien/centos-maven-jdk8
+FROM maven:3-jdk-8
 
 WORKDIR /app
 
