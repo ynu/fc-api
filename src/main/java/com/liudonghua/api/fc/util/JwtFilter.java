@@ -42,7 +42,7 @@ public class JwtFilter extends GenericFilterBean {
 
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
-        String token = request.getParameter(System.getenv().get("JWT_DEFAULT_TOKEN_NAME"));
+        String token = request.getParameter(environment.getProperty("JWT_DEFAULT_TOKEN_NAME"));
         // 如果没有Request parameter Token
         if (token == null) {
             // 检查Header里面的Authorization header
@@ -56,7 +56,7 @@ public class JwtFilter extends GenericFilterBean {
             }
         }
         try {
-            final Claims claims = Jwts.parser().setSigningKey(System.getenv().get("JWT_DEFAULT_SECRET"))
+            final Claims claims = Jwts.parser().setSigningKey(environment.getProperty("JWT_DEFAULT_SECRET"))
                     .parseClaimsJws(token).getBody();
             request.setAttribute("claims", claims);
         } catch (Exception e) {

@@ -57,10 +57,10 @@ public class AuthController {
 			@RequestParam(name = "password") String password) throws ServletException {
 		String token = null;
 		if (!StringUtils.isEmpty(username) && !StringUtils.isEmpty(password)
-				&& username.equals(System.getenv().get("FC_DEFAULT_USERNAME"))
-				&& password.equals(System.getenv().get("FC_DEFAULT_PASSWORD"))) {
+				&& username.equals(environment.getProperty("FC_DEFAULT_USERNAME"))
+				&& password.equals(environment.getProperty("FC_DEFAULT_PASSWORD"))) {
 			token = Jwts.builder().setSubject(username)
-					.signWith(SignatureAlgorithm.HS256, System.getenv().get("JWT_DEFAULT_SECRET")).compact();
+					.signWith(SignatureAlgorithm.HS256, environment.getProperty("JWT_DEFAULT_SECRET")).compact();
 		}
 		return new LoginResponse(token);
 	}
