@@ -1,18 +1,19 @@
 package com.liudonghua.api.fc.rest;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.huawei.esdk.fusioncompute.local.ServiceFactory;
+import com.huawei.esdk.fusioncompute.local.model.ClientProviderBean;
 import com.huawei.esdk.fusioncompute.local.model.FCSDKResponse;
 import com.huawei.esdk.fusioncompute.local.model.PageList;
 import com.huawei.esdk.fusioncompute.local.model.vm.QueryVmsReq;
 import com.huawei.esdk.fusioncompute.local.model.vm.VmInfo;
 import com.huawei.esdk.fusioncompute.local.resources.vm.VmResource;
-import com.liudonghua.api.fc.util.Utils;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -22,12 +23,17 @@ import io.swagger.annotations.Authorization;
 @RequestMapping("/site")
 public class VmController {
 
+	@Autowired
+	ClientProviderBean clientProviderBean;
+
 	/**
 	 * 
 	 * @param siteId
 	 * @param limit
 	 * @param offset
 	 * @return
+	 * @return <code>
+	 * <pre>
 	 * {
 	 *   "errorCode": "00000000",
 	 *   "errorDes": null,
@@ -121,14 +127,17 @@ public class VmController {
 	 *     ]
 	 *   }
 	 * }
+	 * </pre>	 
+	 * </code>
 	 */
-	@ApiOperation(value = "分页查询虚拟机信息", notes = "根据siteId以及可选的limit/offset分页查询虚拟机信息", authorizations={@Authorization(value = "token")})
-	@RequestMapping(path="/{siteId}/vmResource/", method = RequestMethod.GET, produces = "application/json")
+	@ApiOperation(value = "分页查询虚拟机信息", notes = "根据siteId以及可选的limit/offset分页查询虚拟机信息", authorizations = {
+			@Authorization(value = "token") })
+	@RequestMapping(path = "/{siteId}/vmResource/", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<PageList<VmInfo>> queryVMs(
 			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId,
 			@RequestParam(name = "limit", required = false, defaultValue = "20") int limit,
 			@RequestParam(name = "offset", required = false, defaultValue = "0") int offset) {
-		VmResource vmResource = ServiceFactory.getService(VmResource.class, Utils.initLoginClientProviderBean());
+		VmResource vmResource = ServiceFactory.getService(VmResource.class, clientProviderBean);
 		String siteUri = String.format("/service/sites/%s", siteId);
 		QueryVmsReq req = new QueryVmsReq();
 		req.setLimit(limit);
@@ -142,6 +151,8 @@ public class VmController {
 	 * @param siteId
 	 * @param vmId
 	 * @return
+	 * @return <code>
+	 * <pre>
 	 * {
 	 *   "errorCode": "00000000",
 	 *   "errorDes": null,
@@ -336,13 +347,16 @@ public class VmController {
 	 *     }
 	 *   }
 	 * }
+	 * </pre>	 
+	 * </code>
 	 */
-	@ApiOperation(value = "查询虚拟机详情 ", notes = "根据siteId/vmId查询虚拟机详情 ", authorizations={@Authorization(value = "token")})
-	@RequestMapping(path="/{siteId}/vmResource/{vmId}", method = RequestMethod.GET, produces = "application/json")
+	@ApiOperation(value = "查询虚拟机详情 ", notes = "根据siteId/vmId查询虚拟机详情 ", authorizations = {
+			@Authorization(value = "token") })
+	@RequestMapping(path = "/{siteId}/vmResource/{vmId}", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<VmInfo> queryVM(
-			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
+			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId,
 			@ApiParam(name = "vmId", value = "The id of the vm", defaultValue = "i-0000027D") @PathVariable String vmId) {
-		VmResource vmResource = ServiceFactory.getService(VmResource.class, Utils.initLoginClientProviderBean());
+		VmResource vmResource = ServiceFactory.getService(VmResource.class, clientProviderBean);
 		String vmUri = String.format("/service/sites/%s/vms/%s", siteId, vmId);
 		FCSDKResponse<VmInfo> queryVM = vmResource.queryVM(vmUri);
 		return queryVM;

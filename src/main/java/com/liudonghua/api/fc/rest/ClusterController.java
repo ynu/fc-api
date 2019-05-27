@@ -2,18 +2,19 @@ package com.liudonghua.api.fc.rest;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.huawei.esdk.fusioncompute.local.ServiceFactory;
+import com.huawei.esdk.fusioncompute.local.model.ClientProviderBean;
 import com.huawei.esdk.fusioncompute.local.model.FCSDKResponse;
 import com.huawei.esdk.fusioncompute.local.model.cluster.ClusterBasicInfo;
 import com.huawei.esdk.fusioncompute.local.model.cluster.ClusterInfo;
 import com.huawei.esdk.fusioncompute.local.model.cluster.ComputeResource;
 import com.huawei.esdk.fusioncompute.local.resources.cluster.ClusterResource;
-import com.liudonghua.api.fc.util.Utils;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -22,10 +23,12 @@ import io.swagger.annotations.Authorization;
 @RestController
 @RequestMapping("/site")
 public class ClusterController {
-	
+
+	@Autowired
+	ClientProviderBean clientProviderBean;
+
 	/**
-	 * @return
-	 * <code>
+	 * @return <code>
 	 * <pre>
 	 * {
 	 *     "result": [{
@@ -53,21 +56,21 @@ public class ClusterController {
 	 * </pre>	 
 	 * </code>
 	 */
-	@ApiOperation(value = "查询集群列表", notes = "根据siteId查询集群列表", authorizations={@Authorization(value = "token")})
-	@RequestMapping(path="/{siteId}/cluster", method = RequestMethod.GET, produces = "application/json")
+	@ApiOperation(value = "查询集群列表", notes = "根据siteId查询集群列表", authorizations = { @Authorization(value = "token") })
+	@RequestMapping(path = "/{siteId}/cluster", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<List<ClusterBasicInfo>> queryClusters(
 			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId) {
-		ClusterResource clusterResource = ServiceFactory.getService(ClusterResource.class, Utils.initLoginClientProviderBean());
-//		List<String> clusterUrns = new ArrayList<String>();
-//		clusterUrns.add("urn:sites:3EB607A6:clusters:10");
+		ClusterResource clusterResource = ServiceFactory.getService(ClusterResource.class, clientProviderBean);
+		// List<String> clusterUrns = new ArrayList<String>();
+		// clusterUrns.add("urn:sites:3EB607A6:clusters:10");
 		String siteUri = String.format("/service/sites/%s", siteId);
-		FCSDKResponse<List<ClusterBasicInfo>> queryClusters = clusterResource.queryClusters(siteUri, null, null, null, null);
+		FCSDKResponse<List<ClusterBasicInfo>> queryClusters = clusterResource.queryClusters(siteUri, null, null, null,
+				null);
 		return queryClusters;
 	}
 
 	/**
-	 * @return 
-	 * <code>
+	 * @return <code>
 	 * <pre>
 	 * {
 	 *     "result": {
@@ -309,20 +312,20 @@ public class ClusterController {
 	 * </pre>	 
 	 * </code>
 	 */
-	@ApiOperation(value = "查询集群详情", notes = "根据siteId/clusterId查询集群详情", authorizations={@Authorization(value = "token")})
-	@RequestMapping(path="/{siteId}/cluster/{clusterId}", method = RequestMethod.GET, produces = "application/json")
+	@ApiOperation(value = "查询集群详情", notes = "根据siteId/clusterId查询集群详情", authorizations = {
+			@Authorization(value = "token") })
+	@RequestMapping(path = "/{siteId}/cluster/{clusterId}", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<ClusterInfo> queryCluster(
-			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
+			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId,
 			@ApiParam(name = "clusterId", value = "The id of the cluster", defaultValue = "79") @PathVariable String clusterId) {
-		ClusterResource clusterResource = ServiceFactory.getService(ClusterResource.class, Utils.initLoginClientProviderBean());
+		ClusterResource clusterResource = ServiceFactory.getService(ClusterResource.class, clientProviderBean);
 		String clusterUri = String.format("/service/sites/%s/clusters/%s", siteId, clusterId);
 		FCSDKResponse<ClusterInfo> queryCluster = clusterResource.queryCluster(clusterUri);
 		return queryCluster;
 	}
 
 	/**
-	 * @return 
-	 * <code>
+	 * @return <code>
 	 * <pre>
 	 * {
 	 *     "result": {
@@ -338,12 +341,13 @@ public class ClusterController {
 	 * </pre>	 
 	 * </code>
 	 */
-	@ApiOperation(value = "查询集群内计算资源统计信息", notes = "根据siteId/clusterId查询集群内计算资源统计信息", authorizations={@Authorization(value = "token")})
-	@RequestMapping(path="/{siteId}/computerResource/{clusterId}", method = RequestMethod.GET, produces = "application/json")
+	@ApiOperation(value = "查询集群内计算资源统计信息", notes = "根据siteId/clusterId查询集群内计算资源统计信息", authorizations = {
+			@Authorization(value = "token") })
+	@RequestMapping(path = "/{siteId}/computerResource/{clusterId}", method = RequestMethod.GET, produces = "application/json")
 	public FCSDKResponse<ComputeResource> queryComputeResource(
-			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId, 
+			@ApiParam(name = "siteId", value = "The id of the site", defaultValue = "3F7B07E2") @PathVariable String siteId,
 			@ApiParam(name = "clusterId", value = "The id of the cluster", defaultValue = "79") @PathVariable String clusterId) {
-		ClusterResource clusterResource = ServiceFactory.getService(ClusterResource.class, Utils.initLoginClientProviderBean());
+		ClusterResource clusterResource = ServiceFactory.getService(ClusterResource.class, clientProviderBean);
 		String clusterUri = String.format("/service/sites/%s/clusters/%s", siteId, clusterId);
 		FCSDKResponse<ComputeResource> queryComputeResource = clusterResource.queryComputeResource(clusterUri);
 		return queryComputeResource;
