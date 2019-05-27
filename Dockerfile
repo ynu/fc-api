@@ -24,5 +24,10 @@ RUN mvn verify clean --fail-never
 ADD src /app/src
 RUN ["mvn", "clean", "package"]
 
+# http://goinbigdata.com/docker-run-vs-cmd-vs-entrypoint/
+# https://github.com/tianon/docker-brew-ubuntu-core/blob/010bf9649b1d10e2c34b159a9a9b338d0fdd4939/bionic/Dockerfile
+# https://stackoverflow.com/questions/40122152/how-to-remove-entrypoint-from-parent-image-on-dockerfile
+ENTRYPOINT []
+
 EXPOSE 8080
 CMD mvn spring-boot:run
