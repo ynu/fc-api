@@ -1,8 +1,11 @@
-FROM java:8
+# FROM java:8
+# 
+# # Install maven
+# RUN apt-get update
+# RUN apt-get install -y maven
 
-# Install maven
-RUN apt-get update
-RUN apt-get install -y maven
+# https://github.com/Blarne/docker-maven-jdk8
+FROM karumien/centos-maven-jdk8
 
 WORKDIR /app
 
