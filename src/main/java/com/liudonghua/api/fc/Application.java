@@ -1,5 +1,7 @@
 package com.liudonghua.api.fc;
 
+import java.util.Map;
+
 import com.huawei.esdk.fusioncompute.local.ServiceFactory;
 import com.huawei.esdk.fusioncompute.local.model.ClientProviderBean;
 import com.huawei.esdk.fusioncompute.local.resources.common.AuthenticateResource;
@@ -28,6 +30,10 @@ public class Application {
 
     @Bean
     public ClientProviderBean initLoginClientProviderBean() {
+        Map<String, String> env = System.getenv();
+        for (String envName : env.keySet()) {
+            System.out.format("env: %s=%s%n", envName, env.get(envName));
+        }
         System.out.println("initLoginClientProviderBean...");
         ClientProviderBean clientProvider = new ClientProviderBean();
         // 设定服务器配置_设定服务器IP
