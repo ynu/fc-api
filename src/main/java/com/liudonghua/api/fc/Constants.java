@@ -21,12 +21,12 @@ public class Constants implements EnvironmentAware {
 
 	@Override
 	public void setEnvironment(Environment environment) {
-		JWT_DEFAULT_TOKEN_NAME = environment.getProperty("jwt.default.token.name");
-		JWT_DEFAULT_SECRET = environment.getProperty("jwt.default.secret");
-		FC_DEFAULT_SERVER_IP = environment.getProperty("fc.default.server.ip");
-		FC_DEFAULT_SERVER_PORT = environment.getProperty("fc.default.server.port");
-		FC_DEFAULT_USERNAME = environment.getProperty("fc.default.username");
-		FC_DEFAULT_PASSWORD = environment.getProperty("fc.default.password");
+		JWT_DEFAULT_TOKEN_NAME = System.getenv().get("jwt.default.token.name");
+		JWT_DEFAULT_SECRET = System.getenv().get("jwt.default.secret");
+		FC_DEFAULT_SERVER_IP = System.getenv().get("fc.default.server.ip");
+		FC_DEFAULT_SERVER_PORT = System.getenv().get("fc.default.server.port");
+		FC_DEFAULT_USERNAME = System.getenv().get("fc.default.username");
+		FC_DEFAULT_PASSWORD = System.getenv().get("fc.default.password");
 		System.out.println(String.format(
 				"setEnvironment with JWT_DEFAULT_TOKEN_NAME: %s\n, JWT_DEFAULT_SECRET: %s\n, FC_DEFAULT_SERVER_IP: %s\n, FC_DEFAULT_SERVER_PORT: %s\n, FC_DEFAULT_USERNAME: %s\n, FC_DEFAULT_PASSWORD: %s\n",
 				JWT_DEFAULT_TOKEN_NAME, JWT_DEFAULT_SECRET, FC_DEFAULT_SERVER_IP, FC_DEFAULT_SERVER_PORT,

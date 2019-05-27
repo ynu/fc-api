@@ -37,14 +37,14 @@ public class Application {
         System.out.println("initLoginClientProviderBean...");
         ClientProviderBean clientProvider = new ClientProviderBean();
         // 设定服务器配置_设定服务器IP
-        clientProvider.setServerIp(environment.getProperty("fc.default.server.ip"));
+        clientProvider.setServerIp(System.getenv().get("fc.default.server.ip"));
         // 设定服务器配置_设定服务器端口号
-        clientProvider.setServerPort(environment.getProperty("fc.default.server.port"));
-        clientProvider.setUserName(environment.getProperty("fc.default.username"));
+        clientProvider.setServerPort(System.getenv().get("fc.default.server.port"));
+        clientProvider.setUserName(System.getenv().get("fc.default.username"));
         // 初始化用户资源实例
         AuthenticateResource auth = ServiceFactory.getService(AuthenticateResource.class, clientProvider);
         // 以用户名，用户密码作为传入参数，调用AuthenticateResource提供的login方法，完成用户的登录
-        auth.login(environment.getProperty("fc.default.username"), environment.getProperty("fc.default.password"));
+        auth.login(System.getenv().get("fc.default.username"), System.getenv().get("fc.default.password"));
         return clientProvider;
     }
 
